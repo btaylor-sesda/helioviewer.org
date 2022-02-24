@@ -1503,7 +1503,7 @@
 	<script src="resources/lib/boneVojage/jquery.bonevojage.js" type="text/javascript" language="javascript"></script>
 	<script src="resources/lib/mediaelement/build/mediaelement-and-player.min.js" type="text/javascript" language="javascript"></script>
 
-	<!-- Helioviewer JavaScript -->
+	<!-- Helioviewer y'all JavaScript -->
 	<?php
 	if ($debug){
 	?>
