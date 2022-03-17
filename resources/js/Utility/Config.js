@@ -1,7 +1,6 @@
 /**
- * @author <a href="mailto:jeff.stys@nasa.gov">Jeff Stys</a>
- * @author <a href="mailto:keith.hughitt@nasa.gov">Keith Hughitt</a>
- * @fileOverview This class handles the creation and validation of basic configuration parameters
+ * @author <a href="mailto:daniel.garciabriseno@nasa.gov">Daniel Garcia Briseno</a>
+ * @fileOverview This configuration is meant to work for the pre-built docker environment.
  */
 /*jslint browser: true, white: true, onevar: true, undef: true, nomen: false, eqeqeq: true, plusplus: true,
 bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxlen: 120, sub: true */
@@ -14,48 +13,41 @@ var Config = Class.extend(
      * Default parameters
      */
      params: {
-        'back_end'                  : "https://api.helioviewer.org/",
-        'web_root_url'              : "https://helioviewer.org",
-        'build_num'                 : 700,
-        'default_image_scale'       : 4.8408817,
-        'min_image_scale'           : 0.60511022,
-        'max_image_scale'           : 154.90822,
-        'max_tile_layers'           : 5,
-        'prefetch_size'             : 0,
-        'news_url'                  : "https://helioviewer-project.github.io/",
-        'user_video_feed'           : "https://api.helioviewer.org/",
-        'contact_email'             : "contact@helioviewer.org",
+        'back_end'              : "http://localhost:8081",
+        'web_root_url'          : "http://localhost:8080",
+        'build_num'             : 700,
+        'default_image_scale'   : 4.8408817,
+        'min_image_scale'       : 0.60511022,
+        'max_image_scale'       : 154.90822,
+        'max_tile_layers'       : 5,
+        'prefetch_size'         : 0,
+        'news_url'              : "https://blog.helioviewer.org/",
+        'user_video_feed'       : "http://localhost:8081",
+        'contact_email'         : "contact@helioviewer.org",
         'regenerate_movie_threshold': 90
      },
-
     /**
      * @description Creates a new Config.
      * @constructs
      */
     init: function (params) {
         var self = this;
-
         $.each(params, function (k,v) {
             self.params[k] = v;
         });
-
         this.bools  = [];
         this.ints   = ["build_num", "prefetch_size", "max_movie_frames", "max_tile_layers"];
         this.floats = ["default_image_scale", "min_image_scale", "max_image_scale"];
-
         this.fixTypes();
     },
-
     /**
      * @description Fix types of configuration parameters
      */
     fixTypes: function () {
         var param, self = this;
-
         // Booleans
         $.each(this.bools, function () {
             param = self.params[this].toString().toLowerCase();
-
             if ((param === "true") || (param === "1")) {
                 self.params[this] = true;
             }
@@ -63,18 +55,15 @@ var Config = Class.extend(
                 self.params[this] = false;
             }
         });
-
         // Integers
         $.each(this.ints, function () {
             self.params[this] = parseInt(self.params[this], 10);
         });
-
         // Floats
         $.each(this.floats, function () {
             self.params[this] = parseFloat(self.params[this]);
         });
     },
-
     /**
      * @description Returns the configuration parameters as an associative array
      */
